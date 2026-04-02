@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stockscorp S.A. | Real Estate Private Equity | LatAm & USA</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Forced Dark Institutional Palette matching your screenshot */
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #161616;
+            --bg-navy: #050b14; 
+            --bg-navy-light: #0d1624;
+            --text-dark: #e2e8f0; 
+            --text-muted: #94a3b8;
+            --text-light: #ffffff;
+            --text-silver: #cbd5e1;
+            --accent-silver: #94a3b8; 
+            --nav-bg: #0a0a0a;
+            --nav-text: #ffffff;
+            --card-bg: #1e1e1e;
+            --max-width: 1400px;
+            --nav-height: 100px;
+        }
+
+        /* Language Toggle Logic */
+        body[data-lang="en"] .es { display: none !important; }
+        body[data-lang="es"] .en { display: none !important; }
+
+        html {
+            scroll-behavior: smooth;
+            box-sizing: border-box;
+            background-color: var(--bg-primary);
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        *, *:before, *:after { box-sizing: inherit; }
+        body { margin: 0; display: flex; flex-direction: column; overflow-x: hidden; background-color: var(--bg-primary); }
+        section { padding: 100px 20px; position: relative; }
+        .container { max-width: var(--max-width); margin: 0 auto; width: 100%; }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; margin: 0; color: inherit; }
+        h1 { font-weight: 700; letter-spacing: -0.5px; }
+        h2 { font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase; font-size: 0.85rem; color: var(--accent-silver); }
+        h3 { font-weight: 600; margin-bottom: 15px; font-size: 2.2rem; color: var(--text-light); }
+        h4 { font-weight: 600; font-size: 1.3rem; margin-bottom: 10px; color: var(--text-light); }
+
+        p { margin: 0 0 20px 0; color: var(--text-muted); max-width: 700px; font-weight: 400;}
+        a { text-decoration: none; color: inherit; transition: 0.3s ease-in-out; }
+        ul { list-style: none; margin: 0; padding: 0; }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+
+        .btn-navy { background-color: var(--accent-silver); color: var(--bg-primary); border: 1px solid var(--accent-silver); }
+        .btn-navy:hover { background-color: transparent; color: var(--accent-silver); }
+        
+        .btn-outline-light { background-color: transparent; color: var(--text-light); border: 1px solid var(--accent-silver); }
+        .btn-outline-light:hover { background-color: var(--text-light); color: var(--bg-navy); }
+
+        img { max-width: 100%; height: auto; display: block; filter: brightness(.9) contrast(1.05); }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+        .fade-in.active { opacity: 1; transform: translateY(0); }
+
+        /* Navigation */
+        header {
+            height: var(--nav-height);
+            background-color: var(--nav-bg);
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            height: 100%; padding: 0 30px; max-width: 1460px; margin: 0 auto;
+        }
+        .logo img { height: 75px; width: auto; object-fit: contain; } 
+        .nav-right { display: flex; align-items: center; }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--nav-text); }
+        .nav-links a:hover { color: var(--accent-silver); }
+
+        .lang-switch {
+            display: flex; gap: 10px; margin-left: 25px; border-left: 1px solid #4a4a4a; padding-left: 25px;
+        }
+        .lang-btn {
+            background: none; border: none; color: var(--text-muted); font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.3s; padding: 0;
+        }
+        .lang-btn:hover { color: var(--nav-text); }
+        .lang-btn.active { color: var(--accent-silver); border-bottom: 2px solid var(--accent-silver); }
+
+        /* Split Layouts */
+        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .split-content p { max-width: 100%; }
+        .split-image img { border-radius: 2px; object-fit: cover; height: 100%; min-height: 450px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+        /* Hero */
+        #hero { height: 100vh; display: flex; align-items: center; background-color: var(--bg-navy); color: var(--text-light); position: relative; z-index: 1; }
+        #hero .background-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover; background-position: center; z-index: -2;
+        }
+        #hero .background-overlay-shade { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(5, 11, 20, 0.85); z-index: -1; }
+        #hero h1 { font-size: 4.5rem; margin-bottom: 20px; line-height: 1.1; max-width: 900px; color: var(--text-light); }
+        #hero .subheadline { font-size: 1.25rem; margin-bottom: 20px; max-width: 650px; color: var(--text-silver);}
+        .target-markets { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--accent-silver); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; display: block;}
+
+        /* Vertical Integration */
+        #integration { background-color: var(--bg-secondary); }
+        .timeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 50px; }
+        .timeline-item { background: var(--card-bg); padding: 30px; border-top: 3px solid var(--accent-silver); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .timeline-item h4 { font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--text-light); }
+        .timeline-item p { font-size: 0.9rem; margin: 0; color: var(--text-muted); }
+
+        /* Track Record */
+        #track-record { background-color: var(--bg-navy); color: var(--text-light); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+        .portfolio-card { position: relative; overflow: hidden; border-radius: 2px; cursor: pointer; display: block; border: 1px solid #1e1e1e;}
+        .portfolio-card img { transition: transform 0.6s ease-in-out; width: 100%; height: 450px; object-fit: cover; }
+        .portfolio-card:hover img { transform: scale(1.05); }
+        .portfolio-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px; background: linear-gradient(to top, rgba(5, 11, 20, 0.95), transparent); z-index: 2; }
+        .portfolio-info h3 { font-size: 1.6rem; margin-bottom: 5px; color: var(--text-light); }
+        .portfolio-info p { margin: 0; font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--accent-silver); text-transform: uppercase; letter-spacing: 1px;}
+
+        /* Landowners & Investors & US Direct */
+        #landowners { background-color: var(--bg-primary); }
+        #investors { background-color: var(--bg-secondary); }
+        #usa-investment { background-color: var(--bg-primary); }
+        
+        .equity-callout { display: inline-block; background-color: var(--card-bg); padding: 20px 30px; border-left: 4px solid var(--accent-silver); margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .equity-callout p { margin: 0; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--text-dark); font-size: 1.05rem;}
+        .equity-callout span { color: var(--accent-silver); font-weight: 700; }
+
+        /* Leadership */
+        #leadership { background-color: var(--bg-navy-light); color: var(--text-light); }
+        .leadership-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
+        .leadership-card { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 30px 0; transition: 0.3s ease-in-out; }
+        .leadership-card:hover { border-bottom-color: var(--accent-silver); }
+        .leadership-card h3 { font-size: 1.5rem; margin-bottom: 8px; font-family: 'Playfair Display', serif; color: var(--text-light); }
+        .leadership-card p { margin: 0; font-family: 'Inter', sans-serif; font-size: 0.8rem; color: var(--accent-silver); text-transform: uppercase; letter-spacing: 1px;}
+
+        /* Footer */
+        footer { padding: 80px 20px; background-color: var(--bg-navy); color: var(--text-silver); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        footer img { height: 60px; margin: 0 auto 30px auto; filter: brightness(0) invert(1) opacity(0.5); transition: 0.3s; }
+        footer img:hover { filter: brightness(0) invert(1) opacity(1); }
+        footer p { max-width: none; margin: 10px 0; font-size: 0.85rem;}
+
+        @media (max-width: 1100px) {
+            h1 { font-size: 3.5rem; }
+            .split-section { grid-template-columns: 1fr; gap: 40px;}
+            .timeline-grid { grid-template-columns: repeat(2, 1fr); }
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            header { height: 85px; }
+            .logo img { height: 55px; }
+            .nav-links { display: none; } 
+            .lang-switch { margin-left: auto; border: none; }
+            .portfolio-grid, .leadership-grid, .timeline-grid { grid-template-columns: 1fr; }
+            .portfolio-card img { height: 350px; }
+            section { padding: 60px 15px; }
+        }
+    </style>
+</head>
+<body data-lang="en">
+
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <img src="Stockscorp Logo.jpg" alt="Stockscorp S.A.">
+            </a>
+            
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#integration"><span class="en">Platform</span><span class="es">Plataforma</span></a></li>
+                    <li><a href="#track-record"><span class="en">Portfolio</span><span class="es">Portafolio</span></a></li>
+                    <li><a href="#landowners"><span class="en">Landowners</span><span class="es">Propietarios</span></a></li>
+                    <li><a href="#investors"><span class="en">Investors</span><span class="es">Inversionistas</span></a></li>
+                    <li><a href="#usa-investment"><span class="en">US Direct</span><span class="es">EE. UU. Directo</span></a></li>
+                    <li><a href="#leadership"><span class="en">Leadership</span><span class="es">Liderazgo</span></a></li>
+                </ul>
+                <div class="lang-switch">
+                    <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+                    <button id="btn-es" class="lang-btn" onclick="setLanguage('es')">ES</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="background-overlay"></div>
+            <div class="background-overlay-shade"></div>
+            <div class="container fade-in">
+                <h1 class="en">Shaping the Future of Real Estate Development.</h1>
+                <h1 class="es">Forjando el Futuro del Desarrollo Inmobiliario.</h1>
+                
+                <p class="subheadline en">Stockscorp S.A. is a premier real estate and development private equity firm headquartered in Samborondon, Ecuador.</p>
+                <p class="subheadline es">Stockscorp S.A. es una firma líder de capital privado especializada en desarrollo inmobiliario con sede en Samborondón, Ecuador.</p>
+                
+                <span class="target-markets en">Target Markets: Latin America &bull; United States</span>
+                <span class="target-markets es">Mercados Objetivo: América Latina &bull; Estados Unidos</span>
+                
+                <a href="#track-record" class="btn btn-outline-light en">Explore Our Portfolio</a>
+                <a href="#track-record" class="btn btn-outline-light es">Explorar Portafolio</a>
+            </div>
+        </section>
+
+        <section id="integration">
+            <div class="container fade-in">
+                <h2 class="en">Vertical Integration</h2>
+                <h2 class="es">Integración Vertical</h2>
+                
+                <h3 class="en">A Comprehensive Real Estate Platform</h3>
+                <h3 class="es">Una Plataforma Inmobiliaria Integral</h3>
+                
+                <p class="en">Stockscorp S.A. operates as a true one-stop shop for institutional real estate development. By controlling every phase of the asset lifecycle in-house, we mitigate risk, control costs, and accelerate timelines to deliver superior risk-adjusted returns.</p>
+                <p class="es">Stockscorp S.A. opera como una solución integral para el desarrollo inmobiliario institucional. Al controlar cada fase del ciclo de vida del activo internamente, mitigamos el riesgo, optimizamos los costos y aceleramos los cronogramas para ofrecer retornos superiores ajustados al riesgo.</p>
+                
+                <div class="timeline-grid">
+                    <div class="timeline-item fade-in">
+                        <h4 class="en">01. Acquisitions & Planning</h4>
+                        <h4 class="es">01. Adquisición y Planificación</h4>
+                        <p class="en">Rigorous site selection, highest-and-best-use analysis, and strategic financial underwriting for ground-up and value-add opportunities.</p>
+                        <p class="es">Selección rigurosa de terrenos, análisis de mayor y mejor uso (Highest and Best Use), y estructuración financiera estratégica para oportunidades desde cero (ground-up) y de valor agregado (value-add).</p>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <h4 class="en">02. Pre-Development</h4>
+                        <h4 class="es">02. Pre-Desarrollo</h4>
+                        <p class="en">Navigating complex municipal zoning, securing entitlements, and managing architectural and engineering design phases.</p>
+                        <p class="es">Gestión de zonificación municipal compleja, obtención de permisos y dirección de las fases de diseño arquitectónico y de ingeniería estructural.</p>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <h4 class="en">03. Construction Management</h4>
+                        <h4 class="es">03. Gestión de Construcción</h4>
+                        <p class="en">Direct oversight of active construction, contractor procurement, and strict adherence to institutional budget and schedule controls.</p>
+                        <p class="es">Supervisión directa de la construcción activa, contratación de proveedores y cumplimiento estricto de los controles institucionales de presupuesto y cronograma.</p>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <h4 class="en">04. Sales & Dispositions</h4>
+                        <h4 class="es">04. Ventas y Desinversión</h4>
+                        <p class="en">Executing targeted go-to-market strategies, managing leasing/sales operations, and optimizing exit timing to maximize yield.</p>
+                        <p class="es">Ejecución de estrategias de comercialización (go-to-market), gestión de operaciones de venta y optimización de los tiempos de salida para maximizar la rentabilidad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="track-record">
+            <div class="container fade-in">
+                <h2 class="en">Track Record</h2>
+                <h2 class="es">Trayectoria</h2>
+                
+                <h3 class="en">Prominent Projects</h3>
+                <h3 class="es">Proyectos Destacados</h3>
+                
+                <div class="portfolio-grid">
+                    <a href="https://www.google.com/search?q=bosques+de+castilla+ecuador" target="_blank" class="portfolio-card fade-in">
+                        <img src="image_e23a12.jpg" alt="Bosques De Castilla">
+                        <div class="portfolio-info">
+                            <h3>Bosques De Castilla</h3>
+                            <p class="en">Completed &bull; View Gallery</p>
+                            <p class="es">Terminado &bull; Ver Galería</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.google.com/search?q=bocca+samborondon" target="_blank" class="portfolio-card fade-in">
+                        <img src="image_e236cc.jpg" alt="Bocca">
+                        <div class="portfolio-info">
+                            <h3>Bocca – Samborondon</h3>
+                            <p class="en">Completed &bull; View Gallery</p>
+                            <p class="es">Terminado &bull; Ver Galería</p>
+                        </div>
+                    </a>
+
+                    <a href="https://lavistadesaneduardo.com/" target="_blank" class="portfolio-card fade-in">
+                        <img src="image_e2332d.jpg" alt="La Vista San Eduardo">
+                        <div class="portfolio-info">
+                            <h3>La Vista San Eduardo</h3>
+                            <p class="en">Los Ceibos &bull; Active / Phase 3</p>
+                            <p class="es">Los Ceibos &bull; Activo / Fase 3</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="landowners">
+            <div class="container fade-in">
+                <div class="split-section">
+                    <div class="split-content">
+                        <h2 class="en">Strategic Joint Ventures</h2>
+                        <h2 class="es">Alianzas Estratégicas</h2>
+                        
+                        <h3 class="en">Landowner Partnerships</h3>
+                        <h3 class="es">Asociaciones con Propietarios</h3>
+                        
+                        <div class="en">
+                            <p>Across Latin America, prime real estate is often held within families for generations. While these landowners possess highly valuable assets, unlocking that value requires deep technical development expertise and significant capital liquidity—resources that are often difficult to source.</p>
+                            <p>Stockscorp S.A. bridges this gap. We partner directly with legacy landowners, transforming dormant land into institutional-grade, income-producing assets without requiring the landowner to fund construction costs.</p>
+                        </div>
+                        <div class="es">
+                            <p>En toda América Latina, los bienes raíces de primer nivel a menudo se mantienen dentro de las familias durante generaciones. Si bien estos propietarios poseen activos de gran valor, liberar ese capital requiere una profunda experiencia técnica en desarrollo y una importante liquidez—recursos que a menudo son difíciles de obtener.</p>
+                            <p>Stockscorp S.A. cierra esta brecha. Nos asociamos directamente con propietarios tradicionales, transformando terrenos inactivos en activos de grado institucional que generan ingresos, sin requerir que el propietario financie los costos de construcción.</p>
+                        </div>
+                        
+                        <div class="equity-callout">
+                            <p class="en">Contribute your land to a Stockscorp project in exchange for <span>equity and upside</span> in the completed development.</p>
+                            <p class="es">Aporte su terreno a un proyecto de Stockscorp a cambio de <span>participación (equity) y plusvalía</span> en el desarrollo terminado.</p>
+                        </div>
+                        
+                        <p class="en">Our vertically integrated team handles 100% of the zoning, architecture, construction management, and sales. You retain a powerful ownership stake in a landmark asset, fully managed by industry experts.</p>
+                        <p class="es">Nuestro equipo integrado verticalmente maneja el 100% de la zonificación, arquitectura, gestión de construcción y ventas. Usted conserva una sólida participación patrimonial en un activo emblemático, administrado en su totalidad por expertos de la industria.</p>
+                        
+                        <a href="#footer" class="btn btn-navy en" style="margin-top: 15px;">Discuss a Partnership</a>
+                        <a href="#footer" class="btn btn-navy es" style="margin-top: 15px;">Conversar sobre una Alianza</a>
+                    </div>
+                    <div class="split-image">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop" alt="Land Development">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="investors">
+            <div class="container fade-in">
+                <div class="split-section" style="direction: rtl;">
+                    <div class="split-content" style="direction: ltr;">
+                        <h2 class="en">Capital Allocation</h2>
+                        <h2 class="es">Asignación de Capital</h2>
+                        
+                        <h3 class="en">Investor Relations</h3>
+                        <h3 class="es">Relaciones con Inversionistas</h3>
+                        
+                        <div class="en">
+                            <p>Stockscorp S.A. offers distinct, risk-adjusted access to the high-growth Latin American and US real estate markets. We are actively seeking strategic capital partners to co-invest alongside our Principals in our current pipeline of premier developments.</p>
+                            <p>By leveraging our local expertise in high-barrier markets like Samborondon and Los Ceibos, combined with our US-standard institutional underwriting, we provide new investors with a transparent, highly professional vehicle for capital deployment.</p>
+                            <p>Current active syndications include landmark multi-phase developments such as <strong>La Vista San Eduardo</strong>. We invite accredited investors and family offices to review our current offering memorandums and experience the Stockscorp standard of execution.</p>
+                        </div>
+                        <div class="es">
+                            <p>Stockscorp S.A. ofrece un acceso exclusivo y ajustado al riesgo a los mercados inmobiliarios de alto crecimiento en América Latina y EE. UU. Buscamos activamente socios capitalistas estratégicos para co-invertir junto a nuestros Socios Principales en nuestra cartera actual de desarrollos de primer nivel.</p>
+                            <p>Al aprovechar nuestra experiencia local en mercados de alta barrera de entrada como Samborondón y Los Ceibos, combinada con nuestra estructuración financiera (underwriting) bajo estrictos estándares estadounidenses, brindamos a los inversionistas un vehículo transparente y altamente profesional para el despliegue de capital.</p>
+                            <p>Las sindicaciones activas actuales incluyen desarrollos emblemáticos en múltiples fases como <strong>La Vista San Eduardo</strong>. Invitamos a inversionistas acreditados y Family Offices a revisar nuestros memorandos de inversión y experimentar el estándar de ejecución de Stockscorp.</p>
+                        </div>
+                        
+                        <a href="#footer" class="btn btn-navy en" style="margin-top: 15px;">Request Offering Materials</a>
+                        <a href="#footer" class="btn btn-navy es" style="margin-top: 15px;">Solicitar Materiales de Inversión</a>
+                    </div>
+                    <div class="split-image" style="direction: ltr;">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" alt="Institutional Investing">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="usa-investment">
+            <div class="container fade-in">
+                <div class="split-section">
+                    <div class="split-content">
+                        <h2 class="en">Global Reach</h2>
+                        <h2 class="es">Alcance Global</h2>
+                        
+                        <h3 class="en">Direct Investment in USA Real Estate</h3>
+                        <h3 class="es">Inversión Directa en EE. UU.</h3>
+                        
+                        <div class="en">
+                            <p>The Stockscorp Principals bring an unparalleled institutional track record to our investors, having successfully executed over 200 transactions totaling more than $9 Billion in volume across the United States.</p>
+                            <p>As such, investors with Stockscorp are provided exclusive opportunities to invest directly in USA real estate assets. By bypassing traditional syndicators and numerous intermediaries, we offer a highly efficient, transparent, and direct investment pipeline into one of the world's most resilient real estate markets.</p>
+                        </div>
+                        <div class="es">
+                            <p>Los Socios Principales de Stockscorp aportan una trayectoria institucional incomparable a nuestros inversionistas, habiendo ejecutado con éxito más de 200 transacciones por un volumen total de más de $9 mil millones en los Estados Unidos.</p>
+                            <p>Como tal, los inversionistas de Stockscorp tienen oportunidades exclusivas para invertir directamente en activos inmobiliarios en EE. UU. Al eludir a los sindicadores tradicionales y numerosos intermediarios, ofrecemos una vía de inversión altamente eficiente, transparente y directa en uno de los mercados inmobiliarios más resilientes del mundo.</p>
+                        </div>
+                        
+                        <a href="#footer" class="btn btn-navy en" style="margin-top: 15px;">Discuss US Opportunities</a>
+                        <a href="#footer" class="btn btn-navy es" style="margin-top: 15px;">Conversar sobre Oportunidades en EE. UU.</a>
+                    </div>
+                    <div class="split-image">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop" alt="USA Real Estate Skyline">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="leadership">
+            <div class="container fade-in">
+                <h2 class="en">Executive Team</h2>
+                <h2 class="es">Equipo Ejecutivo</h2>
+                
+                <h3 class="en">Our Principals</h3>
+                <h3 class="es">Nuestros Socios Principales</h3>
+                
+                <div class="leadership-grid">
+                    <div class="leadership-card fade-in">
+                        <h3>Roberto Fernandez</h3>
+                        <p class="en">Principal</p>
+                        <p class="es">Socio Principal</p>
+                    </div>
+                    <div class="leadership-card fade-in">
+                        <h3>Juan Andres Santos</h3>
+                        <p class="en">Principal</p>
+                        <p class="es">Socio Principal</p>
+                    </div>
+                    <div class="leadership-card fade-in">
+                        <h3>Ryan Andrade</h3>
+                        <p class="en">Principal</p>
+                        <p class="es">Socio Principal</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="container fade-in">
+            <img src="Stockscorp Logo.jpg" alt="Stockscorp S.A. Logo" style="filter: brightness(0) invert(1) opacity(0.8);">
+            
+            <p class="en">Headquarters: Samborondon, Ecuador</p>
+            <p class="es">Sede Principal: Samborondón, Ecuador</p>
+            
+            <p class="en">Target Markets: Latin America & United States</p>
+            <p class="es">Mercados Objetivo: América Latina y Estados Unidos</p>
+            
+            <p><a href="mailto:investors@stockscorp.ec" style="color: var(--accent-silver);">investors@stockscorp.ec</a></p>
+            
+            <p class="en" style="margin-top: 40px; color: var(--text-muted);">&copy; 2026 Stockscorp S.A. All rights reserved.</p>
+            <p class="es" style="margin-top: 40px; color: var(--text-muted);">&copy; 2026 Stockscorp S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle Function
+        function setLanguage(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // Fade-in Animation Observer
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                else {
+                    entry.target.classList.add('active');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+        
+        faders.forEach(fader => { appearOnScroll.observe(fader); });
+    </script>
+</body>
+</html>
